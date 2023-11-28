@@ -1,0 +1,145 @@
+<div [ngClass]="acno ? 'style' : ''" class="row">
+  <div class="text-white col-sm-12 text-end p-4">
+    <button
+      class="ldbtn btn btn-outline-warning"
+      type="reset"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+    <button
+      class="ldbtn btn btn-outline-danger"
+      type="reset"
+      (click)="delete()"
+    >
+      Delete
+    </button>
+  </div>
+</div>
+<div [ngClass]="acno ? 'style' : ''">
+  <h3 class="text-white p-2">
+    Welcome <span class="text-warning">{{ user }} </span>
+  </h3>
+</div>
+
+<div [ngClass]="acno ? 'style' : ''" class="p-3">
+  <h3 class="text-white">
+    Date & Time :
+    <span class="text-warning">{{ dateandtime | date : "short" }} </span>
+  </h3>
+</div>
+
+<div [ngClass]="acno ? 'style' : ''" class="text-white mt-4">
+  <a
+    class="p-4 ms-2 mt-5 border"
+    style="
+      background-color: rgba(91, 100, 157, 0.371);
+      text-decoration: none;
+      border-radius: 25px;
+    "
+    routerLink="/transaction"
+    >view transaction history</a
+  >
+</div>
+
+<app-deleteconfirm (onCancel)="oncancel()" [item]="acno"></app-deleteconfirm>
+
+<div class="flex-container">
+  <div class="flex-child">
+    <form
+      [ngClass]="acno ? 'style' : ''"
+      (ngSubmit)="deposit()"
+      class="mt-5 p-3"
+      [formGroup]="depositForm"
+    >
+      <div
+        class="container w-25 p-3 rounded"
+        style="background-color: rgba(25, 172, 230, 0.292)"
+      >
+        <h1 class="text-white text-center">Deposit</h1>
+        <div class="mt-2 p-2">
+          <input
+            type="text"
+            name="acno"
+            formControlName="acno"
+            id="acid"
+            placeholder="Enter account number"
+            class="form-control"
+          />
+        </div>
+        <div class="mt-2 p-2">
+          <input
+            type="password"
+            name="psw"
+            formControlName="psw"
+            id="pid"
+            placeholder="Enter password"
+            class="form-control"
+          />
+        </div>
+        <div class="mt-2 p-2">
+          <input
+            type="text"
+            name="amnt"
+            formControlName="amnt"
+            id="amid"
+            placeholder="Enter amount"
+            class="form-control"
+          />
+        </div>
+        <div class="text-center mt-2 p-2">
+          <button class="btn btn-success" type="submit">Deposit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="flex-child">
+    <form
+      [ngClass]="acno ? 'style' : ''"
+      (ngSubmit)="withdraw()"
+      class="mt-5 p-3"
+      [formGroup]="withdrawForm"
+    >
+      <div
+        class="container w-25 p-3 rounded"
+        style="background-color: rgba(25, 172, 230, 0.292)"
+      >
+        <h1 class="text-white text-center">Withdraw</h1>
+        <div class="mt-2 p-2">
+          <input
+            type="text"
+            name="acno1"
+            formControlName="acno1"
+            id="acid1"
+            placeholder="Enter account number"
+            class="form-control"
+          />
+        </div>
+        <div class="mt-2 p-2">
+          <input
+            type="password"
+            name="psw1"
+            formControlName="psw1"
+            id="pid1"
+            placeholder="Enter password"
+            class="form-control"
+          />
+        </div>
+        <div class="mt-2 p-2">
+          <input
+            type="text"
+            name="amnt1"
+            formControlName="amnt1"
+            id="amid1"
+            placeholder="Enter amount"
+            class="form-control"
+          />
+        </div>
+        <div class="text-center mt-2 p-2">
+          <button class="btn btn-success" type="submit">Withdraw</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div>
+    <marquee><h3 class="text-white p-2">{{aim}}</h3></marquee>
+</div>
+<form (ngSubmit)="login()" class="mt-5 p-5" [formGroup]="loginForm" >
+    <div class="container w-25  rounded mt-5 p-3" style="background-color: rgba(8, 143, 170, 0.471);" >
+    <h1 class="text-center text-white ">Login Page</h1>
+    <div class="mt-2 p-2">
+        <input name="acno" formControlName="acno" type="text" id="acid"  [placeholder]="data" class="form-control">
+    </div>
+    <div *ngIf="this.loginForm.get('acno')?.errors && this.loginForm.get('acno')?.touched">
+        <p class="text-danger"> Account should contian only numbers.</p>
+    </div>
+    <div class="mt-2 p-2">
+        <input type="password" formControlName="psw"  name="psw" id="pid"  placeholder="Enter Password"  class="form-control">
+    </div>
+    <div *ngIf="this.loginForm.get('psw')?.errors && this.loginForm.get('psw')?.touched">
+        <p class="text-danger">
+            Password should only contain alphabets.
+        </p>
+    </div>
+    <div class="mt-2 p-2 text-center">
+        <button type="submit"  class="btn btn-success">Login</button>
+        <p class="text-white">new user? <a routerLink="register" style="text-decoration: none;" class="text-warning">Register Here</a> </p>
+    </div>
+    </div>
+</form>
+

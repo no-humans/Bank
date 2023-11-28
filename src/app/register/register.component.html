@@ -1,0 +1,30 @@
+<form (ngSubmit)="register()" [formGroup]="registerForm">
+    <div class="container w-50 mt-5 p-3 rounded" style="background-color: rgba(24, 107, 174, 0.538);">
+        <div class="mt-2 p-3 text-center text-white">
+            <h2>Registration Page</h2>
+        </div>
+    <div class="mt-3 p-3">
+<input type="text" id="name" formControlName="uname" name="uname" placeholder="Enter your name" class="form-control">
+    </div>
+    <div *ngIf="this.registerForm.get('uname')?.errors && this.registerForm.get('uname')?.touched">
+        <p class="text-danger">User name only contains alphabets.</p>
+    </div>
+    <div class="mt-3 p-3">
+        <input type="text" formControlName="acno" placeholder="Enter your account number" name="acno" id="acid" class="form-control">
+    </div>
+    <div *ngIf="this.registerForm.get('acno')?.errors && this.registerForm.get('acno')?.touched">
+        <p class="text-danger"> Account number should contain only numbers.</p>
+    </div>
+    <div class="mt-3 p-3">
+        <input type="password" formControlName="psw" placeholder="Enter your password" name="pass" id="pid" class="form-control">
+    </div>
+    <div *ngIf="this.registerForm.get('psw')?.errors && this.registerForm.get('psw')?.touched">
+        <p class="text-danger">
+            Password should contain only alphabets and numbers.
+        </p>
+    </div>
+    <div class="mt-3 p-2 text-center">
+        <button type="submit" class="btn btn-success">Register</button>
+    </div>
+</div>
+</form>
