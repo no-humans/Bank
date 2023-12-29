@@ -30,22 +30,19 @@ export class RegisterComponent {
     var acno = this.registerForm.value.acno;
     var psw = this.registerForm.value.psw;
 
-if(this.registerForm.valid){
-
-  const result = this.ds.register(uname, acno, psw);
-
-  if (result) {
-    alert('Registration success');
-    this.router.navigateByUrl('');
-  } else {
-    alert('user already exist');
-    this.router.navigateByUrl('');
-  }
-
-}
-else{
-  alert('Invalid Form')
-  this.registerForm.reset({uname:'',acno:'',psw:''})  
-}
+    if (this.registerForm.valid) {
+      this.ds.register(uname, acno, psw).subscribe(
+        (result: any) => {
+          alert(result.message);
+          this.router.navigateByUrl('/');
+        },
+        (result) => {
+          alert(result.error.message);
+          this.router.navigateByUrl('/');
+        }
+      );
+    } else {
+      alert('Invalid form');
+    }
   }
 }

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { TmplAstRecursiveVisitor } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -9,7 +10,7 @@ export class DataService {
   currentuser = '';
   currentacno = '';
   userDetails: any;
-  constructor(private router: Router) {
+  constructor(private router: Router,private http:HttpClient) {
     this.getdetails();
   }
 
@@ -73,21 +74,8 @@ export class DataService {
   // };
 
   register(uname: any, acno: any, psw: any) {
-    var userDetails = this.userDetails;
-    if (acno in userDetails) {
-      return false;
-    } else {
-      userDetails[acno] = {
-        acno,
-        username: uname,
-        password: psw,
-        balance: 0,
-        transaction: [],
-      };
-      console.log(userDetails);
-      this.savedetails();
-      return true;
-    }
+    const data={uname,acno,psw}
+   return this.http.post('http://localhost:3000/register',data)
   }
 
   login(acno: any, psw: any) {
