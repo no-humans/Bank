@@ -12,9 +12,6 @@ import { TmplAstDeferredBlockLoading } from '@angular/compiler';
 export class LoginComponent {
   aim = 'your perfect banking partner. PLEASE LOGIN TO YOU FEDMOBILE';
   data = 'Enter Account Number';
-  // acno = '';
-  // psw = '';
-
   constructor(
     private router: Router,
     private ds: DataService,
@@ -54,28 +51,4 @@ export class LoginComponent {
       this.loginForm.reset({ acno: '', psw: '' });
     }
   }
-
-  // login(a: any, b: any) {
-  //   this.acno = a.value;
-  //   this.psw = b.value;
-  //   var acno = this.acno;
-  //   var psw = this.psw;
-  //   var userDetails = this.userDetails;
-
-  //   if (acno in userDetails) {
-  //     if (psw == userDetails[acno]['password']) {
-  //       alert('login success');
-  //     } else {
-  //       alert('incorrect password');
-  //     }
-  //   } else {
-  //     alert('Enter a valid account number');
-  //   }
-  // }
-  // acnoChange(event:any){
-  // this.acno=event.target.value
-  // }
-  // pswChange(event:any){
-  // this.psw=event.target.value
-  // }
 }

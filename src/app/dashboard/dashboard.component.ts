@@ -37,14 +37,14 @@ export class DashboardComponent {
     var psw = this.depositForm.value.psw;
     var amnt = this.depositForm.value.amnt;
 
-    const result = this.ds.deposit(acno, psw, amnt);
-
-    if (result) {
-      alert(`${amnt} credited to your account and balance is ${result}`);
-    } else {
-      alert('incorrect credentials');
-    }
+    this.ds.deposit(acno, psw, amnt).subscribe((result:any)=>{
+alert(`${amnt} is credited to your account and balance is ${result.message}`)
+    },
+    result=>{
+alert(result.error.message)
+    });
   }
+    
 
   withdrawForm = this.fb.group({ acno1: [''], psw1: [''], amnt1: [''] });
 
@@ -53,11 +53,12 @@ export class DashboardComponent {
     var psw1 = this.withdrawForm.value.psw1;
     var amnt1 = this.withdrawForm.value.amnt1;
 
-    const result = this.ds.withdraw(acno1, psw1, amnt1);
-
-    if (result) {
-      alert(`${amnt1} debited from your account and the balance is ${result} `);
-    }
+    this.ds.withdraw(acno1, psw1, amnt1).subscribe((result:any)=>{
+      alert(`${amnt1} Debited from your account and the balance is ${result.message} `)
+    },
+    result=>{
+      alert(result.error.message)
+  });
   }
 
   logout() {
