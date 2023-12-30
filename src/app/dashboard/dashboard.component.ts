@@ -6,78 +6,72 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-// acno=''
-// psw=''
-// amnt=''
+  user = '';
+  acno: any;
+  dateandtime: any;
 
-// acno1=''
-// psw1=''
-// amnt1=''
-user=''
-acno:any
-dateandtime:any
+  constructor(
+    private ds: DataService,
+    private fb: FormBuilder,
+    private route: Router
+  ) {
+    this.dateandtime = new Date();
 
-constructor(private ds:DataService,private fb:FormBuilder, private route:Router){
-  
-  this.dateandtime=new Date()
+    this.user = JSON.parse(localStorage.getItem('currentuser') || '');
+  }
 
-  this.user=this.ds.currentuser}
+  depositForm = this.fb.group({ acno: [''], psw: [''], amnt: [''] });
 
-depositForm=this.fb.group({acno:[''],psw:[''],amnt:['']})
-
-ngOnInit():void{
-if(!localStorage.getItem('currentacno')){
-  alert('please login to continue')
-  this.route.navigateByUrl('')
-}
-}
-
-  deposit(){
-    var acno=this.depositForm.value.acno
-    var psw = this.depositForm.value.psw
-    var amnt = this.depositForm.value.amnt
-
-    const result=this.ds.deposit(acno,psw,amnt)
-
-    if(result){
-      alert(`${amnt} credited to your account and balance is ${result}`)
-    }
-    else{
-      alert('incorrect credentials')
+  ngOnInit(): void {
+    if (!localStorage.getItem('currentacno')) {
+      alert('please login to continue');
+      this.route.navigateByUrl('');
     }
   }
 
-withdrawForm=this.fb.group({acno1:[''],psw1:[''],amnt1:['']})
+  deposit() {
+    var acno = this.depositForm.value.acno;
+    var psw = this.depositForm.value.psw;
+    var amnt = this.depositForm.value.amnt;
 
-  withdraw(){
-    var acno1=this.withdrawForm.value.acno1
-    var psw1=this.withdrawForm.value.psw1
-    var amnt1=this.withdrawForm.value.amnt1
+    const result = this.ds.deposit(acno, psw, amnt);
 
-    const result=this.ds.withdraw(acno1,psw1,amnt1)
-
-    if(result){
-      alert(`${amnt1} debited from your account and the balance is ${result} `)
+    if (result) {
+      alert(`${amnt} credited to your account and balance is ${result}`);
+    } else {
+      alert('incorrect credentials');
     }
   }
 
-  logout(){
-alert('you are logging out')
-localStorage.removeItem('currentuser')
-localStorage.removeItem('currentacno')
-this.route.navigateByUrl('')
+  withdrawForm = this.fb.group({ acno1: [''], psw1: [''], amnt1: [''] });
+
+  withdraw() {
+    var acno1 = this.withdrawForm.value.acno1;
+    var psw1 = this.withdrawForm.value.psw1;
+    var amnt1 = this.withdrawForm.value.amnt1;
+
+    const result = this.ds.withdraw(acno1, psw1, amnt1);
+
+    if (result) {
+      alert(`${amnt1} debited from your account and the balance is ${result} `);
+    }
   }
 
-  delete(){
-    
-this.acno=JSON.parse(localStorage.getItem('currentacno') || '')
-
+  logout() {
+    alert('you are logging out');
+    localStorage.removeItem('currentuser');
+    localStorage.removeItem('currentacno');
+    this.route.navigateByUrl('');
   }
 
-  oncancel(){
-    this.acno=''
+  delete() {
+    this.acno = JSON.parse(localStorage.getItem('currentacno') || '');
+  }
+
+  oncancel() {
+    this.acno = '';
   }
 }

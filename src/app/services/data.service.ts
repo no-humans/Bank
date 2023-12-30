@@ -10,8 +10,7 @@ export class DataService {
   currentuser = '';
   currentacno = '';
   userDetails: any;
-  constructor(private router: Router,private http:HttpClient) {
-    this.getdetails();
+  constructor(private router: Router, private http: HttpClient) {
   }
 
   savedetails() {
@@ -28,19 +27,6 @@ export class DataService {
     }
   }
 
-  getdetails() {
-    if (localStorage.getItem('database')) {
-      this.userDetails = JSON.parse(localStorage.getItem('database') || '');
-    }
-
-    if (localStorage.getItem('currentuser')) {
-      this.currentuser = JSON.parse(localStorage.getItem('currentuser') || '');
-    }
-
-    if (localStorage.getItem('currentacno')) {
-      this.currentacno = JSON.parse(localStorage.getItem('currentacno') || '');
-    }
-  }
 
   // userDetails: any = {
   //   1000: {
@@ -74,29 +60,13 @@ export class DataService {
   // };
 
   register(uname: any, acno: any, psw: any) {
-    const data={uname,acno,psw}
-   return this.http.post('http://localhost:3000/register',data)
+    const data = { uname, acno, psw };
+    return this.http.post('http://localhost:3000/register', data);
   }
 
   login(acno: any, psw: any) {
-    var userDetails = this.userDetails;
-
-    if (acno in userDetails) {
-      if (psw == userDetails[acno]['password']) {
-        //acno
-        this.currentacno = acno;
-        console.log(this.currentacno);
-
-        // store username
-        this.currentuser = userDetails[acno]['username'];
-        this.savedetails();
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
+    const data = { acno, psw };
+    return this.http.post('http://localhost:3000/login', data);
   }
 
   deposit(acno: any, password: any, amount: any) {
