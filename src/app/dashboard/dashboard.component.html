@@ -8,9 +8,9 @@
       Logout
     </button>
     <button
-      class="ldbtn btn btn-outline-danger"
+      class="ldbtnn btn btn-outline-danger"
       type="reset"
-      (click)="delete()"
+      (click)="deleteconfirm()"
     >
       Delete
     </button>
@@ -42,7 +42,7 @@
   >
 </div>
 
-<app-deleteconfirm (onCancel)="oncancel()" [item]="acno"></app-deleteconfirm>
+<app-deleteconfirm (onDelete)="delete($event)" (onCancel)="oncancel()" [item]="acno"></app-deleteconfirm>
 
 <div class="flex-container">
   <div class="flex-child">

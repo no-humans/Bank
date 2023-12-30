@@ -19,14 +19,15 @@ export class DashboardComponent {
     private route: Router
   ) {
     this.dateandtime = new Date();
-
-    this.user = JSON.parse(localStorage.getItem('currentuser') || '');
+    if (localStorage.getItem('currentuser')) {
+      this.user = JSON.parse(localStorage.getItem('currentuser') || '');
+    }
   }
 
   depositForm = this.fb.group({ acno: [''], psw: [''], amnt: [''] });
 
   ngOnInit(): void {
-    if (!localStorage.getItem('currentacno')) {
+    if (!localStorage.getItem('token')) {
       alert('please login to continue');
       this.route.navigateByUrl('');
     }
@@ -37,14 +38,17 @@ export class DashboardComponent {
     var psw = this.depositForm.value.psw;
     var amnt = this.depositForm.value.amnt;
 
-    this.ds.deposit(acno, psw, amnt).subscribe((result:any)=>{
-alert(`${amnt} is credited to your account and balance is ${result.message}`)
-    },
-    result=>{
-alert(result.error.message)
-    });
+    this.ds.deposit(acno, psw, amnt).subscribe(
+      (result: any) => {
+        alert(
+          `${amnt} is credited to your account and balance is ${result.message}`
+        );
+      },
+      (result) => {
+        alert(result.error.message);
+      }
+    );
   }
-    
 
   withdrawForm = this.fb.group({ acno1: [''], psw1: [''], amnt1: [''] });
 
@@ -53,26 +57,43 @@ alert(result.error.message)
     var psw1 = this.withdrawForm.value.psw1;
     var amnt1 = this.withdrawForm.value.amnt1;
 
-    this.ds.withdraw(acno1, psw1, amnt1).subscribe((result:any)=>{
-      alert(`${amnt1} Debited from your account and the balance is ${result.message} `)
-    },
-    result=>{
-      alert(result.error.message)
-  });
+    this.ds.withdraw(acno1, psw1, amnt1).subscribe(
+      (result: any) => {
+        alert(
+          `${amnt1} Debited from your account and the balance is ${result.message} `
+        );
+      },
+      (result) => {
+        alert(result.error.message);
+      }
+    );
   }
 
   logout() {
-    alert('you are logging out');
+    // alert('you are logging out');
     localStorage.removeItem('currentuser');
     localStorage.removeItem('currentacno');
+    localStorage.removeItem('token');
     this.route.navigateByUrl('');
   }
 
-  delete() {
+  deleteconfirm() {
     this.acno = JSON.parse(localStorage.getItem('currentacno') || '');
   }
 
   oncancel() {
     this.acno = '';
+  }
+
+  delete(event: any) {
+    this.ds.deleteacc(event).subscribe(
+      (result: any) => {
+        alert(result.message);
+        this.logout();
+      },
+      (result) => {
+        alert(result.error.message);
+      }
+    );
   }
 }

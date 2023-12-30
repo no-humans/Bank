@@ -60,4 +60,10 @@ export class DataService {
       this.gettoken()
     );
   }
+  deleteacc(acno: any) {
+    return this.http.delete(
+      'http://localhost:3000/deleteacc/' + acno,
+      this.gettoken()
+    );
+  }
 }

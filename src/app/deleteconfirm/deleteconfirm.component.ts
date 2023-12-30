@@ -7,19 +7,21 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./deleteconfirm.component.css'],
 })
 export class DeleteconfirmComponent {
-
   @Input() item: String | undefined;
 
   // event creation
 
   // EventEmitter
 
-  @Output() onCancel=new EventEmitter()
+  @Output() onCancel = new EventEmitter();
+  @Output() onDelete = new EventEmitter();
 
-  constructor(private ds: DataService) {  }
+  constructor(private ds: DataService) {}
 
-  cancel(){
-this.onCancel.emit()
+  cancel() {
+    this.onCancel.emit();
   }
-
+  delete() {
+    this.onDelete.emit(this.item);
+  }
 }
